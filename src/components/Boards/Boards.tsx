@@ -4,8 +4,8 @@ import { useContext } from "react"
 import { BoardContext } from "../Shared/Context/BoardContext/BoardContext"
 
 export default function Boards () {
-
-    const state = useContext(BoardContext)
+    const context = useContext(BoardContext)
+    const { state } = context
     console.log(state)
     const id = state.boardIds.map((id) =>  {
         console.log("to display" ,state.boards[id]);

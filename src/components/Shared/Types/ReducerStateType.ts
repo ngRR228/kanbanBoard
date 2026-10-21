@@ -23,6 +23,10 @@ export interface State {
     columnIds: number[] ,
 
     cards: Record<number , CardsType> ,
-    cardIds: number[]
+    cardIds: number[] ,
+}
 
+export type Action = {
+    type:"delete_column" | 'delete_card' | 'delete_board' | 'add_card' | 'add_column' | 'add_board';
+    payload: number ;
 }

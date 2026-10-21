@@ -3,7 +3,7 @@ import styles from "./Header.module.css"
 
 export default function Header () {
 const  savedBoardId  =  localStorage.getItem("boardId")
-
+savedBoardId ? JSON.parse(savedBoardId) : savedBoardId
     return (
         <>
         <header className={styles.headerLinks}>
