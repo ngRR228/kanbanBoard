@@ -25,8 +25,26 @@ export interface State {
     cards: Record<number , CardsType> ,
     cardIds: number[] ,
 }
+type RenameBoardType = {
+    boardId: string  ,
+    inputBoardsValue: string
+ }
 
-export type Action = {
-    type:"delete_column" | 'delete_card' | 'delete_board' | 'add_card' | 'add_column' | 'add_board';
-    payload: number ;
+type RenameColumnType = {
+    columnId: number ,
+    inputColumnValue: string
 }
+type RenameCardType = {
+    cardId: number ,
+    inputCardValue: string 
+}
+export type Action = 
+    | {type:"delete_column" , payload: number}
+    | {type:"delete_card" , payload: number}
+    | {type:"delete_board" , payload: number}
+    | {type:"add_card" , payload: number}
+    | {type:"add_column" , payload: number}
+    | {type:"add_board" , payload: number}
+    | {type:"rename_board" , payload: RenameBoardType}
+    | {type:"rename_column" , payload: RenameColumnType}
+    | {type:"rename_card", payload: RenameCardType }

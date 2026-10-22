@@ -1,4 +1,4 @@
-import { act, createContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 import type { State } from "../../Types/ReducerStateType";
 import type {  BoardContextType } from "../../Types/ContextBoardType";
 import type { Action } from "../../Types/ReducerStateType";
@@ -32,22 +32,12 @@ export const BoardContext = createContext<BoardContextType | null>(null)
 
 function reducer (state:State, action:Action){
     if(action.type === 'delete_board'){
-        
         let copyBoards = {...state.boards}
         for(const board of Object.values(copyBoards)) {
-
-            
             if(board.boardId === action.payload){
                 delete copyBoards[board.boardId]
-
-
             }
         }
-        // скопировать состояние boards
-        // превратить обьекты board в массив обьектов
-        // пройтись циклом (каждый board)
-        // условие если board[boardId].boardId === action.payload ? delete board[boardId] : оставить как есть
-        // вернуть новое состояние с измененными параметрами  
         let copyBoardIds = [...state.boardIds]
         copyBoardIds = copyBoardIds.filter((id) => id !== action.payload)
 
@@ -55,8 +45,6 @@ function reducer (state:State, action:Action){
     }
 
     if(action.type === 'add_board'){
-        console.log(state);
-        
         let copyBoardIds = {...state.boardIds}
         let arrayBoardIds = Object.values(copyBoardIds) as number[]
         let max = arrayBoardIds.length > 0 ? Math.max(...arrayBoardIds) + 1 : 1
@@ -106,7 +94,6 @@ function reducer (state:State, action:Action){
     if(action.type === 'add_card'){
         let copyCard = {...state.cards}
         let copyCardIds = [...state.cardIds]
-
          let meow = Object.values(copyCardIds) as number[]
    
                  let max = meow.length > 0 ? Math.max(...meow) + 1 : 1
@@ -117,20 +104,44 @@ function reducer (state:State, action:Action){
         
     }
     if(action.type === 'add_column'){
-        console.log(state);
-
         let copyColumnIds = [...state.columnIds]
         let arrayCopyColumnIds = Object.values(copyColumnIds) as number[]
-        console.log(arrayCopyColumnIds);
         let max = arrayCopyColumnIds.length > 0 ? Math.max(...arrayCopyColumnIds) + 1 : 1
         copyColumnIds = [...state.columnIds , max]
 
-        console.log(max)
-        
         let copyColumns = {...state.columns}
         copyColumns[max] = {boardId: action.payload , columnId: max , columnTitle:"new column"}
 
         return {...state , columns: copyColumns , columnIds: copyColumnIds}
+    }
+    if(action.type === 'rename_board'){
+        let copyBoards = {...state.boards}
+        let copyBoard = {...state.boards[action.payload.boardId]}
+
+        copyBoard.boardTitle = action.payload.inputBoardsValue
+        copyBoards[action.payload.boardId] = { boardId: copyBoard.boardId  , boardTitle: copyBoard.boardTitle}
+        
+         return {...state , boards: copyBoards  }
+    } 
+    if(action.type === "rename_column"){
+        const copyColumns = {...state.columns}
+        const copyColumn = {...state.columns[action.payload.columnId]}
+
+        copyColumn.columnTitle = action.payload.inputColumnValue
+        copyColumns[action.payload.columnId] = copyColumn
+        
+        return {...state , columns: copyColumns}
+                 
+    } 
+    if(action.type = "rename_card"){
+        const copyCards = {...state.cards}
+        const copyCard = {...state.cards[action.payload.cardId]}
+        
+        copyCard.cardTitle = action.payload.inputCardValue
+        copyCards[action.payload.cardId] = copyCard
+
+        return {...state , cards: copyCards }
+        
     }
     return state
 }
