@@ -38,6 +38,10 @@ type RenameCardType = {
     cardId: number ,
     inputCardValue: string 
 }
+type DragCardType = {
+    cardId: number ,
+    columnId: number
+}
 export type Action = 
     | {type:"delete_column" , payload: number}
     | {type:"delete_card" , payload: number}
@@ -48,3 +52,4 @@ export type Action =
     | {type:"rename_board" , payload: RenameBoardType}
     | {type:"rename_column" , payload: RenameColumnType}
     | {type:"rename_card", payload: RenameCardType }
+    | {type:"drag_card" , payload: DragCardType}

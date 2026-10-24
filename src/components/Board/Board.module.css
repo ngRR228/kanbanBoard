@@ -1,8 +1,12 @@
-.boardCard{
-
-}
 
 .columns{
     display: flex;
     gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.board{
+display: flex;
+justify-content: center;
+align-items: center;
 }

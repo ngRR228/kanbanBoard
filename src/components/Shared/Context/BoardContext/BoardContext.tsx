@@ -3,32 +3,35 @@ import type { State } from "../../Types/ReducerStateType";
 import type {  BoardContextType } from "../../Types/ContextBoardType";
 import type { Action } from "../../Types/ReducerStateType";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
+import { initialState } from "../../InitialState";
+import type { DragEndEvent } from "@dnd-kit/react";
+// export const initialState: State = {
+// boards: {
+//     1: {boardId: 1 , boardTitle:'todo'} ,
+//     2: {boardId: 2 , boardTitle:'homework'} ,
+// } ,
+// boardIds: [1 , 2 ] ,
 
-export const initialState: State = {
-boards: {
-    1: {boardId: 1 , boardTitle:'todo'} ,
-    2: {boardId: 2 , boardTitle:'homework'} ,
-} ,
-boardIds: [1 , 2 ] ,
+// columns:{
+//     1: {boardId: 1 , columnId: 1 , columnTitle:'in the q to be done'},
+//     2: {boardId: 1 , columnId: 2 , columnTitle:'in progress'},
+//     3: {boardId: 1 , columnId: 3 , columnTitle:'done'},
+// } ,
+// columnIds: [1 , 2 , 3] ,
 
-columns:{
-    1: {boardId: 1 , columnId: 1 , columnTitle:'in the q to be done'},
-    2: {boardId: 1 , columnId: 2 , columnTitle:'in progress'},
-    3: {boardId: 1 , columnId: 3 , columnTitle:'done'},
-} ,
-columnIds: [1 , 2 , 3] ,
+// cards: {
+// 1: {columnId: 1 ,cardId:1 , cardTitle:'router new version'},
+// 2: {columnId: 2 ,cardId:2 , cardTitle:'useReducer'},
+// 3: {columnId: 2 ,cardId:3 , cardTitle:'normalization'},
+// 4: {columnId: 1 ,cardId:4 , cardTitle:'context'},
+// } ,
+// cardIds:[ 1 , 2 , 3 , 4 ]
 
-cards: {
-1: {columnId: 1 ,cardId:1 , cardTitle:'router new version'},
-2: {columnId: 2 ,cardId:2 , cardTitle:'useReducer'},
-3: {columnId: 2 ,cardId:3 , cardTitle:'normalization'},
-4: {columnId: 1 ,cardId:4 , cardTitle:'context'},
-} ,
-cardIds:[ 1 , 2 , 3 , 4 ]
-
-}
+// }
 
 export const BoardContext = createContext<BoardContextType | null>(null)
+
+
 
 function reducer (state:State, action:Action){
     if(action.type === 'delete_board'){
@@ -133,7 +136,7 @@ function reducer (state:State, action:Action){
         return {...state , columns: copyColumns}
                  
     } 
-    if(action.type = "rename_card"){
+    if(action.type === "rename_card"){
         const copyCards = {...state.cards}
         const copyCard = {...state.cards[action.payload.cardId]}
         
@@ -142,7 +145,16 @@ function reducer (state:State, action:Action){
 
         return {...state , cards: copyCards }
         
+    } 
+    if(action.type === "drag_card"){
+ let copyCards = {...state.cards}
+ let copyCard = {...copyCards[action.payload.cardId]}
+
+copyCard.columnId = action.payload.columnId
+copyCards[action.payload.cardId] = copyCard
+ return {...state , cards: copyCards}
     }
+
     return state
 }
 
@@ -152,8 +164,18 @@ const[state , dispatch] = useReducer(reducer , initialState , (initialState) => 
     const saved = localStorage.getItem('reducer')
     return saved ? JSON.parse(saved) as State : initialState
 })
-
         useLocalStorage("reducer" , state)
+
+
+
+// function handleDragEnd(event: DragEndEvent){
+//     const { active , over } = event
+
+//     if(!over) return;
+
+//     const cardId = active.id as string;
+//     const newStatus = over.id as State
+// }
 
     return(
        <BoardContext.Provider value={{state , dispatch}}>
