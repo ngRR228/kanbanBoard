@@ -1,26 +1,35 @@
-import './App.css'
-// import Boards from './components/Boards/Boards'
-// import Board from './components/Board/Board'
-// import Home from './components/Home/Home'
-// import PageNotFound from './components/PageNotFound/PageNotFound'
-// import { BrowserRouter, Route, Routes } from 'react-router'
+import { createBrowserRouter, RouterProvider } from 'react-router'
+import styles from "./App.module.css"
+import { useContext } from 'react'
+import { ThemeContext } from './components/Shared/Context/ThemeContext/ThemeContext'
+import Layout from './components/Layout/Layout'
+import PageNotFound from './components/PageNotFound/PageNotFound'
+import Home from './components/Home/Home'
+import Boards from './components/Boards/Boards'
+import BoardNotFound from './components/BoardNotFound/BoardNotFound'
+import Board from './components/Board/Board'
+
+const router = createBrowserRouter([
+  {path:'/' ,
+     element: <Layout/> , 
+     errorElement: <PageNotFound/> ,
+      children:[
+  {path: '/' ,errorElement: <PageNotFound/> , element:<Home/>} ,
+  {path: '/boards' , element:<Boards/>} ,
+  {path: '/boards/:boardId', errorElement:<BoardNotFound/> ,  element: <Board/>}
+      ]
+    }
+])
 
 function App() {
+const { currentTheme } = useContext(ThemeContext)
+console.log(currentTheme);
 
   return (
     <>
-    <p>app</p>
-    {/* <BrowserRouter>
-      <Routes>
-          <Route path='/' element={<Home/>} />
-          <Route path='/boards' element={<Boards/>} />
-          <Route path='/board/:boardId' , errorElement: <PageNotFound/> , element={<Board/>} />
-          
-
-
-          <Route path='*' element={< PageNotFound/>} />
-      </Routes>
-      </BrowserRouter> */}
+  <div className={currentTheme === 'light' ? styles.light : styles.dark}>
+   <RouterProvider router={router}/>
+   </div>
     </>
   )
 }

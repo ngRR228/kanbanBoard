@@ -166,17 +166,6 @@ const[state , dispatch] = useReducer(reducer , initialState , (initialState) => 
 })
         useLocalStorage("reducer" , state)
 
-
-
-// function handleDragEnd(event: DragEndEvent){
-//     const { active , over } = event
-
-//     if(!over) return;
-
-//     const cardId = active.id as string;
-//     const newStatus = over.id as State
-// }
-
     return(
        <BoardContext.Provider value={{state , dispatch}}>
             {children}
