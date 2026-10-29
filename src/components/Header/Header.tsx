@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 import styles from "./Header.module.css"
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../Shared/Context/ThemeContext/ThemeContext";
 
 export default function Header () {
@@ -8,7 +8,6 @@ const  savedBoardId  =  localStorage.getItem("boardId")
 savedBoardId ? JSON.parse(savedBoardId) : savedBoardId
 
 const {currentTheme , setCurrentTheme} = useContext(ThemeContext)
-console.log(currentTheme);
 
     return (
         <>

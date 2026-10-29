@@ -53,3 +53,5 @@ export type Action =
     | {type:"rename_column" , payload: RenameColumnType}
     | {type:"rename_card", payload: RenameCardType }
     | {type:"drag_card" , payload: DragCardType}
+    | {type: "UNDO"}
+    | {type: "REDO"}

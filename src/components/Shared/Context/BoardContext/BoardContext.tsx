@@ -1,10 +1,11 @@
-import { createContext, useReducer } from "react";
+import {  createContext, useReducer } from "react";
 import type { State } from "../../Types/ReducerStateType";
 import type {  BoardContextType } from "../../Types/ContextBoardType";
 import type { Action } from "../../Types/ReducerStateType";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
-import { initialState } from "../../InitialState";
-import type { DragEndEvent } from "@dnd-kit/react";
+//import { initialState } from "../../InitialState";
+import { historyReducer, historyState, type HistoryStateType } from "../../ReducerForHotKeys/ReducerForHotKeys";
+//import { historyReducer, historyState, type HistoryStateType } from "../../ReducerForHotKeys/ReducerForHotKeys";
 // export const initialState: State = {
 // boards: {
 //     1: {boardId: 1 , boardTitle:'todo'} ,
@@ -33,7 +34,7 @@ export const BoardContext = createContext<BoardContextType | null>(null)
 
 
 
-function reducer (state:State, action:Action){
+export function reducer (state:State, action:Action){
     if(action.type === 'delete_board'){
         let copyBoards = {...state.boards}
         for(const board of Object.values(copyBoards)) {
@@ -102,7 +103,8 @@ function reducer (state:State, action:Action){
                  let max = meow.length > 0 ? Math.max(...meow) + 1 : 1
                 copyCardIds = [...state.cardIds , max]
                 copyCard[max] = { columnId: action.payload , cardId: max , cardTitle: "new"}
-
+        console.log(state);
+        
      return {...state , cards:copyCard ,  cardIds: copyCardIds }
         
     }
@@ -160,14 +162,19 @@ copyCards[action.payload.cardId] = copyCard
 
 export default function BoardProvider ({children}) {
 
-const[state , dispatch] = useReducer(reducer , initialState , (initialState) => {
+const[state , dispatch] = useReducer(historyReducer , historyState , (historyState) => {
     const saved = localStorage.getItem('reducer')
-    return saved ? JSON.parse(saved) as State : initialState
+    console.log("saved" , JSON.parse(saved));
+    
+    return saved ? JSON.parse(saved) as HistoryStateType  : historyState  
+
 })
+
+
         useLocalStorage("reducer" , state)
 
     return(
-       <BoardContext.Provider value={{state , dispatch}}>
+       <BoardContext.Provider value={{state: state.present , dispatch}}>
             {children}
        </BoardContext.Provider>
     )
