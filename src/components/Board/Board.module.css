@@ -1,12 +1,16 @@
-
-.columns{
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
+.boardCard { display: flex; flex-direction: column; gap: 22px; }
+.board { width: 100%; }
+.columns {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 18px;
+  width: 100%;
+  padding: 0;
+  overflow-x: auto;
+  list-style: none;
 }
-.board{
-display: flex;
-justify-content: center;
-align-items: center;
-}
+.columns > ul { flex: 0 0 290px; margin: 0; padding: 0; list-style: none; }
+.columns > ul > li { list-style: none; }
+.boardCard > ul { margin: 0; padding: 0; }
+@media (max-width: 600px) { .columns { gap: 12px; } .columns > ul { flex-basis: 260px; } }

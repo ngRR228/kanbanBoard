@@ -1,5 +1,25 @@
-.columns{
-    display: flex;
-    flex-direction: column;
-
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
 }
+
+.columns ul {
+  display: grid;
+  gap: 8px;
+  min-width: 220px;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  list-style: none;
+}
+
+.columns li { color: var(--muted); }
+.columns li:nth-child(2) { color: var(--text); font-size: 17px; font-weight: 700; }
+.columns a { display: inline-flex; width: fit-content; padding: 8px 12px; border-radius: 9px; background: var(--surface-muted); font-weight: 600; }

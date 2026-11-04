@@ -1,2 +1,12 @@
 .divLayout {
+  min-height: 100vh;
+}
+
+.divLayout main {
+  width: min(1180px, calc(100% - 40px));
+  margin: 38px auto 64px;
+}
+
+@media (max-width: 600px) {
+  .divLayout main { width: min(100% - 24px, 1180px); margin-top: 24px; }
 }

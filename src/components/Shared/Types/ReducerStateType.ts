@@ -1,15 +1,15 @@
-interface BoardsType {
+export interface BoardsType {
     boardId : number ,
     boardTitle: string
 }
 
-interface ColumnsType {
+export interface ColumnsType {
     boardId: number ,
     columnId: number ,
     columnTitle: string
 }
 
-interface CardsType {
+export interface CardsType {
     columnId: number ,
     cardId: number , 
     cardTitle: string
@@ -53,5 +53,5 @@ export type Action =
     | {type:"rename_column" , payload: RenameColumnType}
     | {type:"rename_card", payload: RenameCardType }
     | {type:"drag_card" , payload: DragCardType}
-    | {type: "UNDO"}
-    | {type: "REDO"}
+    | {type: "UNDO" , payload: number}
+    | {type: "REDO" ,  payload: number}

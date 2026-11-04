@@ -6,15 +6,10 @@ import { BoardContext } from "../Shared/Context/BoardContext/BoardContext"
 export default function Boards () {
     const context = useContext(BoardContext)
     const { state } = context
-    console.log(state)
-    const id = state.boardIds.map((id) =>  {
-        console.log("to display" ,state.boards[id]);
-        
-        state.boards[id]
-    })
-    console.log(id);
-    console.log(state.boards[1]);
-    
+    // const id = state.boardIds.map((id) =>  {
+    //     state.boards[id]
+    // })
+
 
 
     return (

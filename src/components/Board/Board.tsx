@@ -11,6 +11,7 @@ const { boardId } = useParams()
 useEffect(() => {
 localStorage.setItem('boardId' , boardId) 
 }, [boardId])
+
 const context = useContext(BoardContext)
 if(!context) return null
 const { state } = context
@@ -18,12 +19,12 @@ const { state } = context
     return (
         <>
         <div className={styles.boardCard}>
+
             <div className={styles.board}>
                 <BoardComponent boardId={boardId} />
             </div>
 <ul>
-    <li className={styles.columns}>
-{state.columnIds.map((columnId) =>
+    <li className={styles.columns}>{state.columnIds.map((columnId) =>
   state.columns[columnId].boardId === Number(boardId) && (
     <ul key={columnId}>
         <li>
