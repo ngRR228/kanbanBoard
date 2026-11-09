@@ -1,0 +1,15 @@
+.boardCard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.boardCard p { margin: 0; color: var(--muted); }
+.boardCard p:first-child { color: var(--text); font-weight: 700; }
+.boardCard input { flex: 1 1 160px; }

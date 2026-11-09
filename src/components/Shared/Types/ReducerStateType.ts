@@ -42,6 +42,12 @@ type DragCardType = {
     cardId: number ,
     columnId: number
 }
+export type CopyBoardType = {
+    boardId: string ,
+    nextBoardId: number   
+}
+
+
 export type Action = 
     | {type:"delete_column" , payload: number}
     | {type:"delete_card" , payload: number}
@@ -55,3 +61,4 @@ export type Action =
     | {type:"drag_card" , payload: DragCardType}
     | {type: "UNDO" , payload: number}
     | {type: "REDO" ,  payload: number}
+    | {type: "COPY" , payload: CopyBoardType}
